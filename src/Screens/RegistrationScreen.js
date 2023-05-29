@@ -12,6 +12,12 @@ import {
   StyleSheet,
 } from "react-native";
 
+const intialState = {
+  login: "",
+  email: "",
+  password: "",
+}
+
 const RegistrationScreen = () => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +26,7 @@ const RegistrationScreen = () => {
     input2: false,
     input3: false,
   });
+  const [state, setState] = useState(intialState)
 
   const handleFocus = (inputName) => {
     setIsShowKeyboard(true);
@@ -43,6 +50,8 @@ const RegistrationScreen = () => {
   const handleSubmit = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+    console.log(state);
+    setState(intialState)
   };
 
   const handleKeyboardHide = () => {
@@ -78,16 +87,20 @@ const RegistrationScreen = () => {
               style={[styles.input, inputStates.input1 && styles.inputFocused]}
               onFocus={() => handleFocus("input1")}
               onBlur={() => handleBlur("input1")}
+              onChangeText={(value) => { setState((prevState) => ({ ...prevState, login: value })) }}
               placeholder="Login"
               placeholderTextColor={"#BDBDBD"}
+              value={state.login}
             />
 
             <TextInput
               style={[styles.input, inputStates.input2 && styles.inputFocused]}
               onFocus={() => handleFocus("input2")}
               onBlur={() => handleBlur("input2")}
+              onChangeText={(value) => { setState((prevState) => ({ ...prevState, email: value })) }}
               placeholder="Email"
               placeholderTextColor={"#BDBDBD"}
+              value={state.email}
             />
 
             <View style={{ ...styles.passwordContainer }}>
@@ -98,8 +111,10 @@ const RegistrationScreen = () => {
                 ]}
                 onFocus={() => handleFocus("input3")}
                 onBlur={() => handleBlur("input3")}
+                onChangeText={(value) => { setState((prevState) => ({ ...prevState, password: value })) }}
                 placeholder="Password"
                 placeholderTextColor={"#BDBDBD"}
+                value={state.password}
                 secureTextEntry={!showPassword}
               />
               <TouchableOpacity
@@ -133,7 +148,7 @@ const styles = StyleSheet.create({
   imgContainer: {
     position: "relative",
     top: "15%",
-    left: "50%",
+    left: "48%",
     transform: [{ translateX: -50 }, { translateY: -50 }],
     width: 120,
     height: 120,

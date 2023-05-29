@@ -12,6 +12,11 @@ import {
   Keyboard,
 } from "react-native";
 
+const intialState = {
+  email: "",
+  password: "",
+};
+
 const LoginScreen = () => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +24,7 @@ const LoginScreen = () => {
     input1: false,
     input2: false,
   });
+  const [state, setState] = useState(intialState);
 
   const handleFocus = (inputName) => {
     setIsShowKeyboard(true);
@@ -37,6 +43,13 @@ const LoginScreen = () => {
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSubmit = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+    console.log(state);
+    setState(intialState);
   };
 
   const handleKeyboardHide = () => {
@@ -71,8 +84,12 @@ const LoginScreen = () => {
               style={[styles.input, inputStates.input1 && styles.inputFocused]}
               onFocus={() => handleFocus("input1")}
               onBlur={() => handleBlur("input1")}
+              onChangeText={(value) => {
+                setState((prevState) => ({ ...prevState, email: value }));
+              }}
               placeholder="Email"
               placeholderTextColor={"#BDBDBD"}
+              value={state.email}
             />
 
             <View style={{ ...styles.passwordContainer }}>
@@ -83,9 +100,13 @@ const LoginScreen = () => {
                 ]}
                 onFocus={() => handleFocus("input2")}
                 onBlur={() => handleBlur("input2")}
+                onChangeText={(value) => {
+                  setState((prevState) => ({ ...prevState, password: value }));
+                }}
                 placeholder="Password"
                 placeholderTextColor={"#BDBDBD"}
                 secureTextEntry={!showPassword}
+                value={state.password}
               />
               <TouchableOpacity
                 style={styles.showButton}
@@ -97,10 +118,7 @@ const LoginScreen = () => {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleKeyboardHide}
-            >
+            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
               <Text style={styles.textBtn}>Log in</Text>
             </TouchableOpacity>
 
