@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Keyboard,
+  Button,
 } from "react-native";
 
 const intialState = {
@@ -17,7 +18,7 @@ const intialState = {
   password: "",
 };
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [inputStates, setInputStates] = useState({
@@ -60,7 +61,7 @@ const LoginScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={handleKeyboardHide}>
       <ImageBackground
-        source={require("../../assets/images/background-2.png")}
+        source={require("../../../assets/images/background-2.png")}
         style={styles.image}
       >
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : ""}>
@@ -122,7 +123,12 @@ const LoginScreen = () => {
               <Text style={styles.textBtn}>Log in</Text>
             </TouchableOpacity>
 
-            <Text style={styles.text}>Don't have an account? Sign up</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Registration")}
+            >
+              <Text style={styles.text}>Don't have an account? Sign up</Text>
+            </TouchableOpacity>
+          
           </View>
         </KeyboardAvoidingView>
       </ImageBackground>

@@ -1,11 +1,13 @@
+import "react-native-gesture-handler";
 import React, { useCallback } from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import RegistrationScreen from "./src/Screens/RegistrationScreen";
-import LoginScreen from "./src/Screens/LoginScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { useRoute } from "./router";
 
 export default function App() {
+  const routing = useRoute();
+
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
   });
@@ -21,15 +23,8 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      {/* <RegistrationScreen /> */}
-      <LoginScreen />
-    </View>
+    <NavigationContainer onLayout={onLayoutRootView}>
+      {routing}
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

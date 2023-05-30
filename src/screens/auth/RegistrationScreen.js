@@ -18,7 +18,7 @@ const intialState = {
   password: "",
 }
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [inputStates, setInputStates] = useState({
@@ -62,7 +62,7 @@ const RegistrationScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={handleKeyboardHide}>
       <ImageBackground
-        source={require("../../assets/images/background-2.png")}
+        source={require("../../../assets/images/background-2.png")}
         style={styles.image}
       >
         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : ""}>
@@ -130,7 +130,12 @@ const RegistrationScreen = () => {
               <Text style={styles.textBtn}>Sign up</Text>
             </TouchableOpacity>
 
-            <Text style={styles.text}>Already have an account? Log in</Text>
+             <TouchableOpacity
+              onPress={() => navigation.navigate("Login")}
+            >
+               <Text style={styles.text}>Already have an account? Log in</Text>
+            </TouchableOpacity>
+          
           </View>
         </KeyboardAvoidingView>
       </ImageBackground>
