@@ -1,4 +1,5 @@
 import React from "react";
+import { View, StyleSheet } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -11,6 +12,9 @@ import LoginScreen from "./src/screens/auth/LoginScreen";
 import ProfileScreen from "./src/screens/main/ProfileScreen";
 import CreatePostsScreen from "./src/screens/main/CreatePostsScreen";
 import PostsScreen from "./src/screens/main/PostsScreen";
+
+import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
@@ -30,22 +34,69 @@ export const useRoute = (isAuth) => {
     );
   }
   return (
-    <MainTab.Navigator>
+    <MainTab.Navigator tabBarOptions={{ showLabel: false }}>
       <MainTab.Screen
-        options={{ headerShown: false }}
+        options={{
+          title: "Posts",
+
+          headerTitleStyle: {
+            fontWeight: 500,
+            fontSize: 17,
+            lineHeight: 22,
+            letterSpacing: -0.408,
+            color: "#212121",
+          },
+          headerRight: () => (
+            <Feather name="log-out" size={24} color="#BDBDBD" />
+          ),
+          tabBarIcon: ({ focused, size, color }) => (
+            <Feather name="grid" size={24} color="#212121" />
+          ),
+        }}
         name="Posts"
         component={PostsScreen}
       />
       <MainTab.Screen
-        options={{ headerShown: false }}
+        options={{
+          title: "Create post",
+          headerTitleStyle: {
+            fontWeight: 500,
+            fontSize: 17,
+            lineHeight: 22,
+            letterSpacing: -0.408,
+            color: "#212121",
+          },
+          tabBarIcon: ({ focused, size, color }) => (
+            <View style={styles.icon}>
+              <AntDesign name="plus" size={13} color="#FFFFFF" />
+            </View>
+          ),
+        }}
         name="Create"
         component={CreatePostsScreen}
       />
       <MainTab.Screen
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, size, color }) => (
+            <Feather name="user" size={24} color="#212121" />
+          ),
+        }}
         name="Profile"
         component={ProfileScreen}
       />
     </MainTab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  icon: {
+    display: "flex",
+    width: 70,
+    height: 40,
+    backgroundColor: "#FF6C00",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
