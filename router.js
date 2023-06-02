@@ -34,21 +34,10 @@ export const useRoute = (isAuth) => {
     );
   }
   return (
-    <MainTab.Navigator tabBarOptions={{ showLabel: false }}>
+    <MainTab.Navigator screenOptions={{ tabBarShowLabel: false }}>
       <MainTab.Screen
         options={{
-          title: "Posts",
-
-          headerTitleStyle: {
-            fontWeight: 500,
-            fontSize: 17,
-            lineHeight: 22,
-            letterSpacing: -0.408,
-            color: "#212121",
-          },
-          headerRight: () => (
-            <Feather name="log-out" size={24} color="#BDBDBD" />
-          ),
+          headerShown: false,
           tabBarIcon: ({ focused, size, color }) => (
             <Feather name="grid" size={24} color="#212121" />
           ),
@@ -92,6 +81,7 @@ export const useRoute = (isAuth) => {
 const styles = StyleSheet.create({
   icon: {
     display: "flex",
+    marginTop: 9,
     width: 70,
     height: 40,
     backgroundColor: "#FF6C00",

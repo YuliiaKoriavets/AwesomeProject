@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   Keyboard,
-  Button,
 } from "react-native";
 
 const intialState = {

@@ -103,7 +103,7 @@ const RegistrationScreen = ({ navigation }) => {
               value={state.email}
             />
 
-            <View style={{ ...styles.passwordContainer }}>
+            <View style={styles.passwordContainer}>
               <TextInput
                 style={[
                   styles.input,

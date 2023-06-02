@@ -6,7 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useRoute } from "./router";
 
 export default function App() {
-  const routing = useRoute();
+  const routing = useRoute(true);
 
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
