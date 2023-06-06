@@ -11,14 +11,17 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { authSignUpUser } from "../../../redux/auth/authOperations";
 
 const intialState = {
-  login: "",
-  email: "",
+  nickname: "",
+  userEmail: "",
   password: "",
-}
+};
 
 const RegistrationScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [inputStates, setInputStates] = useState({
@@ -26,7 +29,7 @@ const RegistrationScreen = ({ navigation }) => {
     input2: false,
     input3: false,
   });
-  const [state, setState] = useState(intialState)
+  const [state, setState] = useState(intialState);
 
   const handleFocus = (inputName) => {
     setIsShowKeyboard(true);
@@ -50,8 +53,9 @@ const RegistrationScreen = ({ navigation }) => {
   const handleSubmit = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
-    console.log(state);
-    setState(intialState)
+    setState(intialState);
+    // console.log(state);
+    dispatch(authSignUpUser(state));
   };
 
   const handleKeyboardHide = () => {
@@ -87,20 +91,24 @@ const RegistrationScreen = ({ navigation }) => {
               style={[styles.input, inputStates.input1 && styles.inputFocused]}
               onFocus={() => handleFocus("input1")}
               onBlur={() => handleBlur("input1")}
-              onChangeText={(value) => { setState((prevState) => ({ ...prevState, login: value })) }}
+              onChangeText={(value) => {
+                setState((prevState) => ({ ...prevState, nickname: value }));
+              }}
               placeholder="Login"
               placeholderTextColor={"#BDBDBD"}
-              value={state.login}
+              value={state.nickname}
             />
 
             <TextInput
               style={[styles.input, inputStates.input2 && styles.inputFocused]}
               onFocus={() => handleFocus("input2")}
               onBlur={() => handleBlur("input2")}
-              onChangeText={(value) => { setState((prevState) => ({ ...prevState, email: value })) }}
+              onChangeText={(value) => {
+                setState((prevState) => ({ ...prevState, userEmail: value }));
+              }}
               placeholder="Email"
               placeholderTextColor={"#BDBDBD"}
-              value={state.email}
+              value={state.userEmail}
             />
 
             <View style={styles.passwordContainer}>
@@ -111,7 +119,9 @@ const RegistrationScreen = ({ navigation }) => {
                 ]}
                 onFocus={() => handleFocus("input3")}
                 onBlur={() => handleBlur("input3")}
-                onChangeText={(value) => { setState((prevState) => ({ ...prevState, password: value })) }}
+                onChangeText={(value) => {
+                  setState((prevState) => ({ ...prevState, password: value }));
+                }}
                 placeholder="Password"
                 placeholderTextColor={"#BDBDBD"}
                 value={state.password}
@@ -130,12 +140,9 @@ const RegistrationScreen = ({ navigation }) => {
               <Text style={styles.textBtn}>Sign up</Text>
             </TouchableOpacity>
 
-             <TouchableOpacity
-              onPress={() => navigation.navigate("Login")}
-            >
-               <Text style={styles.text}>Already have an account? Log in</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <Text style={styles.text}>Already have an account? Log in</Text>
             </TouchableOpacity>
-          
           </View>
         </KeyboardAvoidingView>
       </ImageBackground>

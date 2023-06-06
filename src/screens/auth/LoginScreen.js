@@ -11,13 +11,16 @@ import {
   StyleSheet,
   Keyboard,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { authSignInUser } from "../../../redux/auth/authOperations";
 
 const intialState = {
-  email: "",
+  userEmail: "",
   password: "",
 };
 
 const LoginScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [inputStates, setInputStates] = useState({
@@ -49,6 +52,7 @@ const LoginScreen = ({ navigation }) => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
     setState(intialState);
+    dispatch(authSignInUser(state));
   };
 
   const handleKeyboardHide = () => {
@@ -84,11 +88,11 @@ const LoginScreen = ({ navigation }) => {
               onFocus={() => handleFocus("input1")}
               onBlur={() => handleBlur("input1")}
               onChangeText={(value) => {
-                setState((prevState) => ({ ...prevState, email: value }));
+                setState((prevState) => ({ ...prevState, userEmail: value }));
               }}
               placeholder="Email"
               placeholderTextColor={"#BDBDBD"}
-              value={state.email}
+              value={state.userEmail}
             />
 
             <View style={{ ...styles.passwordContainer }}>
@@ -126,7 +130,6 @@ const LoginScreen = ({ navigation }) => {
             >
               <Text style={styles.text}>Don't have an account? Sign up</Text>
             </TouchableOpacity>
-          
           </View>
         </KeyboardAvoidingView>
       </ImageBackground>
